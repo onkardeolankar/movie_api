@@ -1,7 +1,7 @@
 import React from 'react';
 import { useContext, useEffect, useState } from "react";
 
-const API_URL = `http://www.omdbapi.com/?apikey=${process.env.REACT_API_KEY}`;
+export const API_URL = `http://www.omdbapi.com/?apikey=${process.env.REACT_API_KEY}`;
 const AppContext = React.createContext();
 // we need to create a provider fun
 const AppProvider = ({ children }) => {
@@ -9,7 +9,9 @@ const AppProvider = ({ children }) => {
 	const [movie, setMovie] = useState([]);
 	const [isError, setIsError] = useState({ show: "false", msg: "" });
     const[query,setQuery] = useState("titanic");
+
 	const getMovies = async (url) => {
+		setIsLoading(true);
 		try {
 			const res = await fetch(url);
 			const data = await res.json();
